@@ -8,6 +8,9 @@ import PrivateRoute from "./Private/PrivateRoute";
 import MainLayout from "../layout/MainLayout";
 import DashboardLayout from "../layout/DashboardLayout";
 import LogIn from "../pages/LogIn"
+import ProductDetails from "../pages/ProductDetails";
+import AllProducts from "../pages/AllProducts";
+import AddProducts from "../pages/AddProducts";
 
 
 export const router = createBrowserRouter([
@@ -19,6 +22,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:3000/shoes"),
+      },
+      {
+        path: "/products/:id",
+        element: <ProductDetails/>,
+        loader: ({params}) => fetch(`http://localhost:3000/shoes/${params.id}`),
       },
       {
         path: "/about",
@@ -47,6 +56,23 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "dashboard/all-products",
+        element: (
+          <PrivateRoute>
+            <AllProducts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "dashboard/add-products",
+        element: (
+          <PrivateRoute>
+            <AddProducts />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
+//hello
