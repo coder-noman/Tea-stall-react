@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const SingleProductCardDashboard = ({ shoe }) => {
+const SingleProductCardDashboard = ({ shoe, onDelete }) => {
   const { id, title, brand, price, description, image_url } = shoe;
   const handleDelete =async()=>{
     await fetch(`http://localhost:3000/shoes/${id}`,
     {method: "DELETE"})
     .then(res=>res.json())
-    .then(data =>console.log(data))
+    .then(data => {
+      console.log(data)
+      onDelete(id)})
   }
 
 
@@ -23,7 +25,7 @@ const SingleProductCardDashboard = ({ shoe }) => {
         <p>{description}</p>
         <div className="card-actions justify-center">
           <button className="btn bg-green-500 text-white">
-            <Link to={`/products/${id}`}>Update</Link>
+            <Link to={`edit/${id}`}>Update</Link>
           </button>
           <button onClick={handleDelete} className="btn bg-red-500 text-white">Delete
           </button>

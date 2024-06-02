@@ -11,6 +11,7 @@ import LogIn from "../pages/LogIn"
 import ProductDetails from "../pages/ProductDetails";
 import AllProducts from "../pages/AllProducts";
 import AddProducts from "../pages/AddProducts";
+import EditProduct from "../pages/EditProduct"
 
 
 export const router = createBrowserRouter([
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/all-products",
+        path: "all-products",
         element: (
           <PrivateRoute>
             <AllProducts />
@@ -65,12 +66,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/add-products",
+        path: "add-products",
         element: (
           <PrivateRoute>
             <AddProducts />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "all-products/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditProduct/>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/shoes/${params.id}`),
       },
     ],
   },
